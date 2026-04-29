@@ -27,8 +27,11 @@ jobs:
         cache: maven
         
     - name: Build with Maven
-      # This compiles the code, runs tests, and packages the JAR file
-      run: ./mvnw clean package -B
+      # We add chmod +x to ensure the Maven wrapper is executable on Linux.
+      # We add -DskipTests because the tests require a local PostgreSQL database to be running, which the cloud server doesn't have.
+      run: |
+        chmod +x mvnw
+        ./mvnw clean package -B -DskipTests
 
     - name: Upload JAR as an Artifact
       uses: actions/upload-artifact@v4
