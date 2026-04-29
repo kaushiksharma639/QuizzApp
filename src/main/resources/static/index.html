@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Quiz Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <main class="app-container">
+        <!-- Loader Screen -->
+        <div id="loader-screen" class="screen active">
+            <div class="loader"></div>
+            <p>Initializing Quiz Data...</p>
+        </div>
+
+        <!-- Registration Screen -->
+        <div id="registration-screen" class="screen hidden">
+            <h1 class="title">Tech<span>Quiz</span></h1>
+            <p class="subtitle">Enter your name to begin your journey.</p>
+            
+            <form id="registration-form">
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="Your Name" required autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <input type="email" id="useremail" placeholder="Your Gmail address" pattern=".+@gmail\.com" title="Please enter a valid @gmail.com address" required autocomplete="off">
+                </div>
+                <button type="submit" class="primary-btn">Start Challenge</button>
+            </form>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen hidden">
+            <header class="quiz-header">
+                <div class="player-info">
+                    <span id="display-name">Player</span>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-text">Question <span id="current-q-num">1</span> of <span id="total-q-num">?</span></div>
+                    <div class="progress-bar-bg">
+                        <div id="progress-bar" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+                
+                <div class="timer-display">
+                    ⏱️ <span id="time-left">30</span>s
+                </div>
+                <div class="score-display">Score: <span id="current-score">0</span></div>
+                <button id="exit-btn" class="exit-btn" title="Exit Quiz">✖</button>
+            </header>
+
+            <div class="question-container">
+                <h2 id="question-text" class="question-text">Question text goes here?</h2>
+                
+                <div class="options-grid" id="options-grid">
+                    <!-- Options injected via JS -->
+                </div>
+            </div>
+            
+            <div class="quiz-footer">
+                <button id="next-btn" class="primary-btn hidden">Next Question <span class="arrow">→</span></button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="result-screen" class="screen hidden">
+            <img id="reaction-gif" class="reaction-gif hidden" alt="Reaction">
+            <h1 class="title">Challenge <span>Complete!</span></h1>
+            <div class="score-card">
+                <div class="circle-score">
+                    <svg viewBox="0 0 36 36" class="circular-chart">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path id="score-circle-fill" class="circle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <div class="percentage-container">
+                        <span id="score-percentage">0%</span>
+                    </div>
+                </div>
+                <p class="final-score-text">You scored <span id="final-score">0</span> out of <span id="final-total">0</span></p>
+                <p id="feedback-message" class="feedback-message">Great job!</p>
+            </div>
+            <button id="restart-btn" class="secondary-btn">Play Again</button>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
