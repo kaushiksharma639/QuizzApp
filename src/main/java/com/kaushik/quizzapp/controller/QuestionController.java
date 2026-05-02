@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
+//Control the sequence of question
 @RestController
     @RequestMapping("question")
+    // control all the question in quizz
     public class QuestionController{
 
         @Autowired
