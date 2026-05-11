@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
-
+// containe question for quizz
 @Data
 @Entity
 @JsonPropertyOrder({"id", "question", "option1", "option2", "option3", "option4", "correctAnswer"})
