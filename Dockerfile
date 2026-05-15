@@ -1,20 +1,28 @@
-# Use an official Eclipse Temurin JDK 17 image as the base
-FROM eclipse-temurin:17-jdk-alpine
+# Stage 1: Build the application with Maven
+FROM eclipse-temurin:17-jdk-alpine AS build
 
-# Maintainer info
+WORKDIR /app
+
+# Copy Maven wrapper and pom.xml first for dependency caching
+COPY pom.xml ./
+COPY .mvn .mvn
+COPY mvnw ./
+RUN chmod +x mvnw && ./mvnw dependency:resolve
+
+# Copy source code and build
+COPY src ./src
+RUN ./mvnw package -DskipTests
+
+# Stage 2: Run the application
+FROM eclipse-temurin:17-jre-alpine
+
 LABEL maintainer="quizzapp"
 
-# Add a volume pointing to /tmp
-VOLUME /tmp
+WORKDIR /app
 
-# Make port 8080 available to the world outside this container
+# Copy the built JAR from the build stage
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
 
-# The application's jar file is expected to be built and placed in the target directory
-ARG JAR_FILE=target/*.jar
-
-# Copy the application's jar to the container
-COPY ${JAR_FILE} app.jar
-
-# Run the jar file
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
