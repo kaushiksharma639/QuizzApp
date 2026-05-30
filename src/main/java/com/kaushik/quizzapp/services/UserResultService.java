@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 //contain user result
+// view user result
 @Service
 public class UserResultService {
 
